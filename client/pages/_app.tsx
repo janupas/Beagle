@@ -1,3 +1,4 @@
+import { Context } from '../context/Context'
 import '../styles/global.scss'
 
 // Custom app
@@ -9,9 +10,9 @@ const App = ({
   pageProps: Object
 }) => {
   return (
-    <>
+    <Context>
       <Component {...pageProps} />
-    </>
+    </Context>
   )
 }
 
