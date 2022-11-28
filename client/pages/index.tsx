@@ -4,9 +4,24 @@ import { Header } from '../components/header'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { context } from '../context/Context'
+import { useRouter } from 'next/router'
 
 const Index = () => {
-  const { name, setName, joinPublicRoom }: any = useContext(context)
+  const router = useRouter()
+  const { name, setName }: any = useContext(context)
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+
+    if (name.length < 5 || name.length >= 25) {
+      alert(
+        'Please insert a name more than 5 characters and less than 25 characters'
+      )
+      return
+    }
+
+    router.push('/chats/public')
+  }
 
   return (
     <div>
@@ -22,7 +37,7 @@ const Index = () => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <Button label="Join the public room" onClick={joinPublicRoom} />
+            <Button label="Join the public room" onClick={handleSubmit} />
           </form>
         </div>
       </Container>
