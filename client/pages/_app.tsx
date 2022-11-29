@@ -1,14 +1,13 @@
 import { Context } from '../context/Context'
 import '../styles/global.scss'
 
-// Custom app
-const App = ({
-  Component,
-  pageProps,
-}: {
+interface AppProps {
   Component: any
   pageProps: Object
-}) => {
+}
+
+// Custom app
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Context>
       <Component {...pageProps} />
