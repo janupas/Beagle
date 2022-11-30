@@ -17,6 +17,16 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   console.log("User connected: " + socket.id);
+
+  socket.on("message", (payload) => {
+    console.log(payload);
+
+    io.emit("message-back", payload);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected: " + socket.id);
+  });
 });
 
 app.get("/", (req: Request, res: Response<{ msg: string }>) => {
