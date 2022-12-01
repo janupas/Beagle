@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useState } from 'react'
-import socket from '../socket/socket'
 
 export const context = createContext({})
 
