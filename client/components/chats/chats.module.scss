@@ -1,8 +1,22 @@
 .chats {
   border: 1px solid slategray;
-  padding: 3px;
   border-radius: 4px;
   width: 100%;
   background: rgb(252, 252, 252);
   min-height: 40vh;
+
+  .chat {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+  }
+
+  .my_chat {
+    justify-content: flex-end !important;
+  }
+
+  .their_chat {
+    justify-content: flex-start !important;
+  }
 }

@@ -27,16 +27,19 @@ export const Chats = ({ messages }: ChatsProps) => {
             return (
               <React.Fragment key={index}>
                 {message.from.id === id ? (
-                  <div>
-                    <span>
-                      {message.from.name}: {message.value}
-                    </span>
+                  <div className={`${Styles.my_chat} ${Styles.chat}`}>
+                    <span>{message.value}</span>
                   </div>
                 ) : (
-                  <div>
-                    <span>
-                      {message.from.name}: {message.value}
-                    </span>
+                  <div className={`${Styles.their_chat} ${Styles.chat}`}>
+                    <div>
+                      <div>
+                        <div>{message.from.name}</div>
+                      </div>
+                      <div>
+                        <div>{message.value}</div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </React.Fragment>
