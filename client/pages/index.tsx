@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { Button } from '../components/button'
 import { Container } from '../components/container'
 import { Header } from '../components/header'
 import { Input } from '../components/input'
-import { Button } from '../components/button'
-import { Context, context } from '../context/Context'
-import { useRouter } from 'next/router'
+import { context } from '../context/Context'
 
 const Index = () => {
   const router = useRouter()
