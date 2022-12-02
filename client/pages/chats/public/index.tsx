@@ -22,6 +22,7 @@ const PublicChatRoom = () => {
         from: { id: socket.id, name },
       })
 
+      // Empty the message field
       setMessage('')
     }
   }
@@ -30,10 +31,6 @@ const PublicChatRoom = () => {
     // Redirecting user back to home page if a name is not found
     if (typeof name === 'undefined' || name.length === 0) {
       router.push('/')
-    }
-
-    if (localStorage.getItem('id')) {
-      setId(localStorage.getItem('id'))
     }
   }, [name])
 
@@ -60,6 +57,7 @@ const PublicChatRoom = () => {
       <Container>
         <Header title="Public chat room" />
 
+        {/** Rendering the chats */}
         <Chats messages={chat} />
 
         <div style={{ marginTop: 30 }}>

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { context } from '../../context/Context'
+import socket from '../../socket/socket'
 import Styles from './chats.module.scss'
 
 interface ChatsProps {
@@ -17,8 +18,6 @@ export type Message = {
 }
 
 export const Chats = ({ messages }: ChatsProps) => {
-  const { id }: any = useContext(context)
-
   return (
     <React.Fragment>
       {messages.length > 0 ? (
@@ -26,7 +25,8 @@ export const Chats = ({ messages }: ChatsProps) => {
           {messages.map((message: Message, index) => {
             return (
               <React.Fragment key={index}>
-                {message.from.id === id ? (
+                {/** Checking the owner of the message */}
+                {message.from.id === socket.id ? (
                   <div className={`${Styles.my_chat} ${Styles.chat}`}>
                     <span>{message.value}</span>
                   </div>

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Button } from '../components/button'
 import { Container } from '../components/container'
 import { Header, HeaderType } from '../components/header'
@@ -22,12 +22,24 @@ const Index = () => {
       return
     }
 
-    router.push('/chats/public')
+    // Validating the room field
+    if (!room) {
+      alert('Please enter a room name')
+      return
+    }
+
+    // Checking if the room is public or a custom one
+    if (room === 'public') {
+      router.push('/chats/public')
+    } else {
+      router.push(`/chats/${room}`)
+    }
   }
 
   return (
     <div>
       <Container>
+        {/** Rendering the custom beagle header  */}
         <Header title={`Beagle`} type={HeaderType.BIG} />
 
         <div className={Styles.box}>
