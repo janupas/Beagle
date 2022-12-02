@@ -8,6 +8,7 @@ export enum HeaderType {
   H4 = 'h4',
   H5 = 'h5',
   H6 = 'h6',
+  BIG = 'big',
 }
 
 interface HeaderProps {
@@ -24,6 +25,7 @@ export const Header = ({ title, type }: HeaderProps) => {
     h4: <h4 className={Styles.header}>{title}</h4>,
     h5: <h5 className={Styles.header}>{title}</h5>,
     h6: <h6 className={Styles.header}>{title}</h6>,
+    big: <p className={`${Styles.header} ${Styles.custom_header}`}>{title}</p>,
   }
 
   // Setting the default size to h1

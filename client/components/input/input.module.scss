@@ -1,13 +1,18 @@
 .input {
   width: 80%;
-  margin: 0 auto;
-  padding: 8px 13px;
-  border: 1px solid rgb(96, 192, 224);
-  outline: none;
-  color: black;
+  margin: 5px;
+  font-family: 'Manrope';
   margin-bottom: 20px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 15px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  letter-spacing: 1px;
 
-  &:focus {
-    border-color: rgb(8, 146, 192);
+  &::placeholder {
+    color: rgb(202, 198, 198);
   }
 }

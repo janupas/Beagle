@@ -1,14 +1,15 @@
-import { useContext, useEffect } from 'react'
-import { Container } from '../components/container'
-import { Header } from '../components/header'
-import { Input } from '../components/input'
-import { Button } from '../components/button'
-import { Context, context } from '../context/Context'
 import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { Button } from '../components/button'
+import { Container } from '../components/container'
+import { Header, HeaderType } from '../components/header'
+import { Input } from '../components/input'
+import { context } from '../context/Context'
+import Styles from '../styles/pages/index.module.scss'
 
 const Index = () => {
   const router = useRouter()
-  const { name, setName }: any = useContext(context)
+  const { name, setName, room, setRoom }: any = useContext(context)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -27,19 +28,25 @@ const Index = () => {
   return (
     <div>
       <Container>
-        <Header title={`Welcome to my chat application`} />
+        <Header title={`Beagle`} type={HeaderType.BIG} />
 
-        <div style={{ marginTop: 50 }}>
-          <form>
-            <Input
-              type="text"
-              placeholder="Your name..."
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+        <div className={Styles.box}>
+          <Header title="Join room" type={HeaderType.H1} />
 
-            <Button label="Join the public room" onClick={handleSubmit} />
-          </form>
+          <Input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            type="text"
+            placeholder="Room"
+            value={room}
+            onChange={(e) => setRoom(e.target.value)}
+          />
+
+          <Button label="Join" onClick={handleSubmit} />
         </div>
       </Container>
     </div>
