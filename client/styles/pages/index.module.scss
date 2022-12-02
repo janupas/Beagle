@@ -1,0 +1,16 @@
+.box {
+  padding: 10px 5px;
+  max-width: 600px;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.7px);
+  -webkit-backdrop-filter: blur(4.7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
