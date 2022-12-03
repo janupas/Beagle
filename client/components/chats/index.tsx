@@ -1,6 +1,6 @@
+import React, { useEffect, useRef } from 'react'
 import Styles from './chats.module.scss'
 import socket from '../../socket/socket'
-import React from 'react'
 
 interface ChatsProps {
   messages: Array<Message>
@@ -18,6 +18,13 @@ export interface Message {
 }
 
 export const Chats = ({ messages }: ChatsProps) => {
+  const scrollRef = useRef<any>(null)
+
+  // Scroll to bottom on change of messages
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: 'smooth' })
+  }, [messages])
+
   return (
     <React.Fragment>
       <div className={Styles.chats}>
@@ -57,6 +64,9 @@ export const Chats = ({ messages }: ChatsProps) => {
             </React.Fragment>
           )
         })}
+
+        {/** Div to scroll to bottom */}
+        <div ref={scrollRef} />
       </div>
     </React.Fragment>
   )
