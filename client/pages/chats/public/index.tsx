@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
-import { Button } from '../../../components/button'
 import { Chats, Message } from '../../../components/chats'
 import { Container } from '../../../components/container'
+import { useContext, useEffect, useState } from 'react'
+import { Button } from '../../../components/button'
 import { Header } from '../../../components/header'
-import { Input } from '../../../components/input'
 import { context } from '../../../context/Context'
-import socket from '../../../socket/socket'
+import { Input } from '../../../components/input'
 import { AiOutlineSend } from 'react-icons/ai'
+import socket from '../../../socket/socket'
+import { useRouter } from 'next/router'
 
 const PublicChatRoom = () => {
   const [chat, setChat] = useState<Array<Message>>([])
