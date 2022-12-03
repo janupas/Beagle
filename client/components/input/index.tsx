@@ -5,6 +5,7 @@ interface InputProps {
   placeholder: string
   value: any
   onChange: (e: any) => any
+  onKeyDown?: (e: any) => any
 }
 
 export const Input = (props: InputProps) => {

@@ -15,7 +15,7 @@ const PublicChatRoom = () => {
   const { name }: any = useContext(context)
   const router = useRouter()
 
-  const handleSend = (e: any) => {
+  const send = () => {
     if (message.length) {
       // Emitting the messages
       socket.emit('message', {
@@ -26,6 +26,19 @@ const PublicChatRoom = () => {
 
       // Empty the message field
       setMessage('')
+    }
+  }
+
+  const handleSend = (e: any) => {
+    send()
+  }
+
+  /**
+   * Send the message if enter key got pressed
+   */
+  const handleKeyDown = (e: any) => {
+    if (e.code === 'Enter' && e.keyCode === 13) {
+      send()
     }
   }
 
@@ -69,6 +82,7 @@ const PublicChatRoom = () => {
             placeholder="Your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <Button label={<AiOutlineSend />} onClick={handleSend} />
         </div>
