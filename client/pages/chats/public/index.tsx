@@ -12,7 +12,7 @@ import { AiOutlineSend } from 'react-icons/ai'
 const PublicChatRoom = () => {
   const [chat, setChat] = useState<Array<Message>>([])
   const [message, setMessage] = useState<string>('')
-  const { name, setId }: any = useContext(context)
+  const { name }: any = useContext(context)
   const router = useRouter()
 
   const handleSend = (e: any) => {
@@ -21,6 +21,7 @@ const PublicChatRoom = () => {
       socket.emit('message', {
         value: message,
         from: { id: socket.id, name },
+        time: new Date().toLocaleTimeString(),
       })
 
       // Empty the message field
@@ -47,6 +48,7 @@ const PublicChatRoom = () => {
           id: payload.from.id,
           name: payload.from.name,
         },
+        time: payload.time,
       }
 
       setChat([...chat, newMessage])

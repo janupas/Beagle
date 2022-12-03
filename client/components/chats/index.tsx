@@ -15,6 +15,7 @@ type From = {
 export type Message = {
   value: string
   from: From
+  time: string
 }
 
 export const Chats = ({ messages }: ChatsProps) => {
@@ -29,7 +30,7 @@ export const Chats = ({ messages }: ChatsProps) => {
                 <div className={`${Styles.my_chat} ${Styles.chat}`}>
                   <div className={`${Styles.text} ${Styles.my_text}`}>
                     <span>{message.value}</span>
-                    <span className={Styles.date}>Date</span>
+                    <span className={Styles.date}>{message.time}</span>
                   </div>
                 </div>
               ) : (
@@ -41,7 +42,7 @@ export const Chats = ({ messages }: ChatsProps) => {
                       </span>
                       <span>{message.value}</span>
                       <span className={`${Styles.date} ${Styles.their_date}`}>
-                        Date
+                        {message.time}
                       </span>
                     </div>
                   </div>
