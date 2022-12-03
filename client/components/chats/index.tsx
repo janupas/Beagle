@@ -29,13 +29,20 @@ export const Chats = ({ messages }: ChatsProps) => {
                 <div className={`${Styles.my_chat} ${Styles.chat}`}>
                   <div className={`${Styles.text} ${Styles.my_text}`}>
                     <span>{message.value}</span>
+                    <span className={Styles.date}>Date</span>
                   </div>
                 </div>
               ) : (
                 <div className={`${Styles.their_chat} ${Styles.chat}`}>
                   <div>
                     <div className={`${Styles.text} ${Styles.their_text}`}>
+                      <span className={Styles.sender_name}>
+                        {message.from.name}
+                      </span>
                       <span>{message.value}</span>
+                      <span className={`${Styles.date} ${Styles.their_date}`}>
+                        Date
+                      </span>
                     </div>
                   </div>
                 </div>
