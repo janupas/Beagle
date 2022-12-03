@@ -7,6 +7,7 @@ import { Header } from '../../../components/header'
 import { Input } from '../../../components/input'
 import { context } from '../../../context/Context'
 import socket from '../../../socket/socket'
+import { AiOutlineSend } from 'react-icons/ai'
 
 const PublicChatRoom = () => {
   const [chat, setChat] = useState<Array<Message>>([])
@@ -60,14 +61,14 @@ const PublicChatRoom = () => {
         {/** Rendering the chats */}
         <Chats messages={chat} />
 
-        <div style={{ marginTop: 30 }}>
+        <div style={{ marginTop: 30, display: 'flex' }}>
           <Input
             type="text"
             placeholder="Your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <Button label="Send" onClick={handleSend} />
+          <Button label={<AiOutlineSend />} onClick={handleSend} />
         </div>
       </Container>
     </div>

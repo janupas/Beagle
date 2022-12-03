@@ -1,7 +1,8 @@
+import { ReactNode } from 'react'
 import Styles from './button.module.scss'
 
 interface ButtonProps {
-  label: string
+  label: string | ReactNode
   onClick: (e: any) => any
 }
 

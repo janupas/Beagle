@@ -20,35 +20,30 @@ export type Message = {
 export const Chats = ({ messages }: ChatsProps) => {
   return (
     <React.Fragment>
-      {messages.length > 0 ? (
-        <div className={Styles.chats}>
-          {messages.map((message: Message, index) => {
-            return (
-              <React.Fragment key={index}>
-                {/** Checking the owner of the message */}
-                {message.from.id === socket.id ? (
-                  <div className={`${Styles.my_chat} ${Styles.chat}`}>
+      <div className={Styles.chats}>
+        {messages.map((message: Message, index) => {
+          return (
+            <React.Fragment key={index}>
+              {/** Checking the owner of the message */}
+              {message.from.id === socket.id ? (
+                <div className={`${Styles.my_chat} ${Styles.chat}`}>
+                  <div className={`${Styles.text} ${Styles.my_text}`}>
                     <span>{message.value}</span>
                   </div>
-                ) : (
-                  <div className={`${Styles.their_chat} ${Styles.chat}`}>
-                    <div>
-                      <div>
-                        <div>{message.from.name}</div>
-                      </div>
-                      <div>
-                        <div>{message.value}</div>
-                      </div>
+                </div>
+              ) : (
+                <div className={`${Styles.their_chat} ${Styles.chat}`}>
+                  <div>
+                    <div className={`${Styles.text} ${Styles.their_text}`}>
+                      <span>{message.value}</span>
                     </div>
                   </div>
-                )}
-              </React.Fragment>
-            )
-          })}
-        </div>
-      ) : (
-        ''
-      )}
+                </div>
+              )}
+            </React.Fragment>
+          )
+        })}
+      </div>
     </React.Fragment>
   )
 }
