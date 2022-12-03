@@ -3,13 +3,30 @@
   border-radius: 4px;
   width: 100%;
   background: rgb(252, 252, 252);
-  min-height: 40vh;
+  min-height: 400px;
+  height: 50vh;
+  overflow-x: auto;
 
   .chat {
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     padding: 3px;
+
+    .text {
+      padding: 13px 22px;
+      border-radius: 7px;
+      margin: 3px;
+    }
+
+    .my_text {
+      background-color: #2b3a55;
+      color: white;
+    }
+
+    .their_text {
+      background-color: lightgray;
+      color: black;
+    }
   }
 
   .my_chat {
