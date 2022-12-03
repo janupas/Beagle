@@ -1,18 +1,18 @@
-import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
-import { Button } from '../../../components/button'
 import { Chats, Message } from '../../../components/chats'
 import { Container } from '../../../components/container'
+import { useContext, useEffect, useState } from 'react'
+import { Button } from '../../../components/button'
 import { Header } from '../../../components/header'
-import { Input } from '../../../components/input'
 import { context } from '../../../context/Context'
-import socket from '../../../socket/socket'
+import { Input } from '../../../components/input'
 import { AiOutlineSend } from 'react-icons/ai'
+import socket from '../../../socket/socket'
+import { useRouter } from 'next/router'
 
 const PublicChatRoom = () => {
   const [chat, setChat] = useState<Array<Message>>([])
   const [message, setMessage] = useState<string>('')
-  const { name, setId }: any = useContext(context)
+  const { name }: any = useContext(context)
   const router = useRouter()
 
   const handleSend = (e: any) => {
@@ -21,6 +21,7 @@ const PublicChatRoom = () => {
       socket.emit('message', {
         value: message,
         from: { id: socket.id, name },
+        time: new Date().toLocaleTimeString(),
       })
 
       // Empty the message field
@@ -47,6 +48,7 @@ const PublicChatRoom = () => {
           id: payload.from.id,
           name: payload.from.name,
         },
+        time: payload.time,
       }
 
       setChat([...chat, newMessage])

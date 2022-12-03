@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
-import { Button } from '../components/button'
-import { Container } from '../components/container'
 import { Header, HeaderType } from '../components/header'
-import { Input } from '../components/input'
-import { context } from '../context/Context'
 import Styles from '../styles/pages/index.module.scss'
+import { Container } from '../components/container'
+import { Button } from '../components/button'
+import { context } from '../context/Context'
+import { Input } from '../components/input'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 
 const Index = () => {
   const router = useRouter()

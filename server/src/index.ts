@@ -15,6 +15,7 @@ const io = new Server(httpServer, {
   },
 });
 
+// Connecting to socket
 io.on("connection", (socket) => {
   console.log("User connected: " + socket.id);
 
@@ -35,4 +36,6 @@ app.get("/", (req: Request, res: Response<{ msg: string }>) => {
   });
 });
 
-httpServer.listen(5000, () => console.log("Server listening on port 5000"));
+httpServer.listen(process.env.PORT, () =>
+  console.log("Server listening on port " + process.env.PORT)
+);

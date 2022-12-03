@@ -12,10 +12,28 @@
     justify-content: center;
     padding: 3px;
 
+    .date {
+      font-size: 11px;
+      margin-top: 2px;
+      color: lightgrey;
+    }
+
+    .their_date {
+      color: black !important;
+    }
+
     .text {
       padding: 13px 22px;
       border-radius: 7px;
       margin: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .sender_name {
+        font-size: 12px;
+        color: #540375;
+      }
     }
 
     .my_text {
@@ -26,6 +44,7 @@
     .their_text {
       background-color: lightgray;
       color: black;
+      align-items: flex-start !important;
     }
   }
 
