@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { socket } from '../../socket/socket'
+import { Chat, MessageStatus } from '../chat'
+import { Notification } from '../notification'
 import Styles from './chats.module.scss'
 
 export enum MessageType {
@@ -11,7 +13,7 @@ interface ChatsProps {
   messages: Array<Message>
 }
 
-interface From {
+export interface From {
   id: string
   name: string
 }
@@ -45,37 +47,25 @@ export const Chats = ({ messages }: ChatsProps) => {
                     /**
                      * Messages sent by the user
                      */
-                    <div className={`${Styles.my_chat} ${Styles.chat}`}>
-                      <div className={`${Styles.text} ${Styles.my_text}`}>
-                        <span>{message.value}</span>
-                        <span className={Styles.date}>{message.time}</span>
-                      </div>
-                    </div>
+                    <Chat
+                      value={message.value}
+                      time={message.time}
+                      status={MessageStatus.SENT}
+                    />
                   ) : (
                     /**
                      * Messages got by others
                      */
-                    <div className={`${Styles.their_chat} ${Styles.chat}`}>
-                      <div>
-                        <div className={`${Styles.text} ${Styles.their_text}`}>
-                          <span className={Styles.sender_name}>
-                            {message.from?.name}
-                          </span>
-                          <span>{message.value}</span>
-                          <span
-                            className={`${Styles.date} ${Styles.their_date}`}
-                          >
-                            {message.time}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <Chat
+                      value={message.value}
+                      time={message.time}
+                      status={MessageStatus.RECEIVED}
+                      from={message.from}
+                    />
                   )}
                 </>
               ) : (
-                <div className={Styles.notification}>
-                  <p>{message.value}</p>
-                </div>
+                <Notification value={message.value} />
               )}
             </React.Fragment>
           )
