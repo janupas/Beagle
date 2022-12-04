@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
     const user = online_users.find((user) => user.id === socket.id);
 
     if (typeof user?.username !== "undefined") {
-      console.log(`${user?.username} just got disconnected`);
+      console.log({ value: `${user?.username} just got disconnected` });
       io.emit("user-changed", {
         value: `${user?.username} just got disconnected`,
       });
