@@ -3,16 +3,18 @@ import { Container } from '../../../components/container'
 import { useContext, useEffect, useState } from 'react'
 import { Button } from '../../../components/button'
 import { Header } from '../../../components/header'
-import { context } from '../../../context/Context'
+import { Context, context } from '../../../context/Context'
 import { Input } from '../../../components/input'
+import { socket } from '../../../socket/socket'
 import { AiOutlineSend } from 'react-icons/ai'
-import socket from '../../../socket/socket'
 import { useRouter } from 'next/router'
 
 const PublicChatRoom = () => {
   const [chat, setChat] = useState<Array<Message>>([])
   const [message, setMessage] = useState<string>('')
-  const { name }: any = useContext(context)
+
+  const { name }: Context = useContext(context)
+
   const router = useRouter()
 
   const send = () => {
@@ -25,12 +27,8 @@ const PublicChatRoom = () => {
       })
 
       // Empty the message field
-      setMessage('')
+      setMessage((message) => '')
     }
-  }
-
-  const handleSend = (e: any) => {
-    send()
   }
 
   /**
@@ -55,16 +53,17 @@ const PublicChatRoom = () => {
      *  and setting it to the state
      */
     socket.on('message-back', (payload) => {
-      const newMessage: Message = {
-        value: payload.value,
-        from: {
-          id: payload.from.id,
-          name: payload.from.name,
+      setChat([
+        ...chat,
+        {
+          value: payload.value,
+          from: {
+            id: payload.from.id,
+            name: payload.from.name,
+          },
+          time: payload.time,
         },
-        time: payload.time,
-      }
-
-      setChat([...chat, newMessage])
+      ])
     })
   }, [socket, chat])
 
@@ -84,7 +83,7 @@ const PublicChatRoom = () => {
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <Button label={<AiOutlineSend />} onClick={handleSend} />
+          <Button label={<AiOutlineSend />} onClick={send} />
         </div>
       </Container>
     </div>
