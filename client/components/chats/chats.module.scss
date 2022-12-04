@@ -39,12 +39,14 @@
     .my_text {
       background-color: #2b3a55;
       color: white;
+      border-radius: 10px 0px 10px 10px !important;
     }
 
     .their_text {
       background-color: lightgray;
       color: black;
       align-items: flex-start !important;
+      border-radius: 0px 10px 10px 10px !important;
     }
   }
 
@@ -54,5 +56,18 @@
 
   .their_chat {
     justify-content: flex-start !important;
+  }
+
+  .notification {
+    padding: 15px;
+    margin: 2px;
+
+    p {
+      display: inline;
+      padding: 8px 18px;
+      background-color: rgb(226, 153, 140);
+      color: white;
+      border-radius: 10px;
+    }
   }
 }
