@@ -6,6 +6,8 @@ import { SyntheticEvent, useContext } from 'react'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { useRouter } from 'next/router'
+import socket from '../socket/socket'
+import { useContext } from 'react'
 
 const Index = () => {
   const router = useRouter()
@@ -33,8 +35,8 @@ const Index = () => {
     // Checking if the room is public or a custom one
     if (contextValues.room === 'public') {
       router.push('/chats/public')
-    } else {
-      router.push(`/chats/${contextValues.room}`)
+
+      socket.emit('join', { id: socket.id, name })
     }
   }
 
@@ -56,6 +58,7 @@ const Index = () => {
           <Input
             type="text"
             placeholder="Room"
+            disabled={true}
             value={contextValues.room}
             onChange={(e) => contextValues.setRoom?.(e.target.value)}
           />

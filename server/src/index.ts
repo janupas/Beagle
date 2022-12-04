@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -15,9 +15,22 @@ const io = new Server(httpServer, {
   },
 });
 
+interface User {
+  username: string;
+  id: string;
+}
+
+let online_users: Array<User> = [];
+
 // Connecting to socket
 io.on("connection", (socket) => {
   console.log("User connected: " + socket.id);
+
+  socket.on("join", (payload) => {
+    io.emit("user-changed", { value: `${payload.name} just joined` });
+
+    online_users.push({ username: payload.name, id: socket.id });
+  });
 
   socket.on("message", (payload) => {
     console.log(payload);
@@ -26,7 +39,16 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected: " + socket.id);
+    const user = online_users.find((user) => user.id === socket.id);
+
+    if (typeof user?.username !== "undefined") {
+      console.log(`${user?.username} just got disconnected`);
+      io.emit("user-changed", {
+        value: `${user?.username} just got disconnected`,
+      });
+
+      online_users = online_users.filter((user) => user.id !== socket.id);
+    }
   });
 });
 
