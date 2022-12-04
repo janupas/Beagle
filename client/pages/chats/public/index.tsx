@@ -62,7 +62,7 @@ const PublicChatRoom = () => {
             name: payload.from.name,
           },
           time: payload.time,
-          type: MessageType.MESSAGE
+          type: MessageType.MESSAGE,
         },
       ])
     })

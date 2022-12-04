@@ -6,8 +6,7 @@ import { SyntheticEvent, useContext } from 'react'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { useRouter } from 'next/router'
-import socket from '../socket/socket'
-import { useContext } from 'react'
+import { socket } from '../socket/socket'
 
 const Index = () => {
   const router = useRouter()
@@ -36,7 +35,7 @@ const Index = () => {
     if (contextValues.room === 'public') {
       router.push('/chats/public')
 
-      socket.emit('join', { id: socket.id, name })
+      socket.emit('join', { id: socket.id, name: contextValues.name })
     }
   }
 
