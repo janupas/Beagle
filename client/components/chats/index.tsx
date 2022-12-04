@@ -6,6 +6,7 @@ export enum MessageType {
   MESSAGE = 'message',
   NOTIFICATION = 'notification',
 }
+
 interface ChatsProps {
   messages: Array<Message>
 }
