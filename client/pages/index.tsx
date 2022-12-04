@@ -5,6 +5,7 @@ import { Button } from '../components/button'
 import { context } from '../context/Context'
 import { Input } from '../components/input'
 import { useRouter } from 'next/router'
+import socket from '../socket/socket'
 import { useContext } from 'react'
 
 const Index = () => {
@@ -31,8 +32,8 @@ const Index = () => {
     // Checking if the room is public or a custom one
     if (room === 'public') {
       router.push('/chats/public')
-    } else {
-      router.push(`/chats/${room}`)
+
+      socket.emit('join', { id: socket.id, name })
     }
   }
 
@@ -56,6 +57,7 @@ const Index = () => {
             placeholder="Room"
             value={room}
             onChange={(e) => setRoom(e.target.value)}
+            disabled={true}
           />
 
           <Button label="Join" onClick={handleSubmit} />

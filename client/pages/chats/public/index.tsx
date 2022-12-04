@@ -1,5 +1,5 @@
-import { Chats, Message } from '../../../components/chats'
-import { Container } from '../../../components/container'
+import { Chats, Message, MessageType } from '../../../components/chats'
+import { Container, ContainerTypes } from '../../../components/container'
 import { useContext, useEffect, useState } from 'react'
 import { Button } from '../../../components/button'
 import { Header } from '../../../components/header'
@@ -62,15 +62,26 @@ const PublicChatRoom = () => {
           name: payload.from.name,
         },
         time: payload.time,
+        type: MessageType.MESSAGE,
       }
 
       setChat([...chat, newMessage])
+    })
+
+    socket.on('user-changed', (payload) => {
+      setChat([
+        ...chat,
+        {
+          value: payload.value,
+          type: MessageType.NOTIFICATION,
+        },
+      ])
     })
   }, [socket, chat])
 
   return (
     <div>
-      <Container>
+      <Container type={ContainerTypes.CHAT}>
         <Header title="Public chat room" />
 
         {/** Rendering the chats */}
