@@ -1,8 +1,9 @@
 import { Header, HeaderType } from '../components/header'
 import Styles from '../styles/pages/index.module.scss'
+import { Context, context } from '../context/Context'
 import { Container } from '../components/container'
+import { SyntheticEvent, useContext } from 'react'
 import { Button } from '../components/button'
-import { context } from '../context/Context'
 import { Input } from '../components/input'
 import { useRouter } from 'next/router'
 import socket from '../socket/socket'
@@ -10,27 +11,29 @@ import { useContext } from 'react'
 
 const Index = () => {
   const router = useRouter()
-  const { name, setName, room, setRoom }: any = useContext(context)
 
-  const handleSubmit = (e: any) => {
+  const contextValues: Context = useContext(context)
+
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
 
     // Validating the form
-    if (name.length < 2 || name.length >= 25) {
-      alert(
-        'Please insert a name more than 2 characters and less than 25 characters'
-      )
-      return
-    }
-
-    // Validating the room field
-    if (!room) {
-      alert('Please enter a room name')
-      return
+    if (
+      typeof contextValues.name !== 'undefined' &&
+      typeof contextValues.room !== 'undefined'
+    ) {
+      if (
+        contextValues.name.length > 20 ||
+        contextValues.name.length === 0 ||
+        contextValues.room.length === 0
+      ) {
+        alert('Please enter a valid name and room')
+        return
+      }
     }
 
     // Checking if the room is public or a custom one
-    if (room === 'public') {
+    if (contextValues.room === 'public') {
       router.push('/chats/public')
 
       socket.emit('join', { id: socket.id, name })
@@ -49,15 +52,15 @@ const Index = () => {
           <Input
             type="text"
             placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={contextValues.name}
+            onChange={(e) => contextValues.setName?.(e.target.value)}
           />
           <Input
             type="text"
             placeholder="Room"
-            value={room}
-            onChange={(e) => setRoom(e.target.value)}
             disabled={true}
+            value={contextValues.room}
+            onChange={(e) => contextValues.setRoom?.(e.target.value)}
           />
 
           <Button label="Join" onClick={handleSubmit} />

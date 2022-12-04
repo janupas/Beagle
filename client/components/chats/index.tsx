@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
+import { socket } from '../../socket/socket'
 import Styles from './chats.module.scss'
-import socket from '../../socket/socket'
 
 export enum MessageType {
   MESSAGE = 'message',
