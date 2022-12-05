@@ -24,7 +24,7 @@ export const Container = ({ children, type }: ContainerProps) => {
       inlineStyles = { width: '80%' }
       break
     case ContainerTypes.CHAT:
-      inlineStyles = { width: '90%', maxWidth: '1000px' }
+      inlineStyles = { width: '90%', maxWidth: 'initial' }
       break
     default:
       break

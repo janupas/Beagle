@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 const Index = () => {
   const router = useRouter()
 
-  const { name, room, setName, setRoom, setChat, chat }: any =
+  const { name, room, setName, setRoom, setChat, setUsers }: any =
     useContext(context)
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -32,6 +32,12 @@ const Index = () => {
       socket.emit('join', { id: socket.id, name: name })
     }
   }
+
+  useEffect(() => {
+    socket.on('users', (payload) => {
+      setUsers(payload.users)
+    })
+  }, [socket])
 
   useEffect(() => {
     async function fetchMessages() {
