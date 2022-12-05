@@ -19,10 +19,16 @@ export interface Message {
   type?: MessageType
 }
 
+export interface User {
+  id: string
+  username: string
+}
+
 export const Context = ({ children }: { children: ReactNode }) => {
   const [room, setRoom] = useState<string>('public')
   const [name, setName] = useState<string>('')
   const [chat, setChat] = useState<Message[]>([])
+  const [users, setUsers] = useState<User[]>([])
 
   return (
     <context.Provider
@@ -33,6 +39,8 @@ export const Context = ({ children }: { children: ReactNode }) => {
         setName,
         chat,
         setChat,
+        users,
+        setUsers,
       }}
     >
       {children}
