@@ -14,8 +14,15 @@ export const connect = () => {
     .catch((error) => console.log(error))
 }
 
+/**
+ * Load only 100 latest messages
+ */
 export const getAllMessages = async () => {
-  return client.db('beagle').collection('messages').find().toArray()
+  return client
+    .db('beagle')
+    .collection('messages')
+    .find({}, { limit: 100 })
+    .toArray()
 }
 
 export const addMessage = async (message: any) => {
