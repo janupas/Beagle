@@ -41,6 +41,8 @@ io.on('connection', (socket) => {
     })
 
     online_users.push({ username: payload.name, id: socket.id })
+
+    io.emit('users', { users: online_users })
   })
 
   socket.on('message', (payload) => {
@@ -60,6 +62,7 @@ io.on('connection', (socket) => {
       })
 
       online_users = online_users.filter((user) => user.id !== socket.id)
+      io.emit('users', { users: online_users })
     }
   })
 })
