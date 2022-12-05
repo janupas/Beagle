@@ -34,20 +34,17 @@ io.on('connection', (socket) => {
 
   socket.on('join', (payload) => {
     io.emit('user-changed', { value: `${payload.name} just joined` })
+
     addMessage({
       value: `${payload.name} just joined`,
       type: 'notification',
-    }).then((res) => {
-      console.log(res)
     })
 
     online_users.push({ username: payload.name, id: socket.id })
   })
 
   socket.on('message', (payload) => {
-    addMessage({ ...payload, type: 'message' }).then((res) => {
-      console.log(res)
-    })
+    addMessage({ ...payload, type: 'message' })
 
     io.emit('message-back', payload)
   })
@@ -56,11 +53,8 @@ io.on('connection', (socket) => {
     const user = online_users.find((user) => user.id === socket.id)
 
     if (typeof user?.username !== 'undefined') {
-      addMessage({ value: `${user?.username} just got disconnected` }).then(
-        (res) => {
-          console.log(res)
-        }
-      )
+      addMessage({ value: `${user?.username} just got disconnected` })
+
       io.emit('user-changed', {
         value: `${user?.username} just got disconnected`,
       })
