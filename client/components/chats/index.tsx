@@ -1,28 +1,12 @@
 import React, { useEffect, useRef } from 'react'
+import { Message, MessageType } from '../../context/Context'
 import { socket } from '../../socket/socket'
 import { Chat, MessageStatus } from '../chat'
 import { Notification } from '../notification'
 import Styles from './chats.module.scss'
 
-export enum MessageType {
-  MESSAGE = 'message',
-  NOTIFICATION = 'notification',
-}
-
-interface ChatsProps {
+export interface ChatsProps {
   messages: Array<Message>
-}
-
-export interface From {
-  id: string
-  name: string
-}
-
-export interface Message {
-  value: string
-  from?: From
-  time?: string
-  type?: MessageType
 }
 
 export const Chats = ({ messages }: ChatsProps) => {
