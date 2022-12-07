@@ -1,43 +1,54 @@
+import { SyntheticEvent, useContext, useEffect } from 'react'
 import { Header, HeaderType } from '../components/header'
 import Styles from '../styles/pages/index.module.scss'
-import { Context, context } from '../context/Context'
 import { Container } from '../components/container'
-import { SyntheticEvent, useContext } from 'react'
 import { Button } from '../components/button'
+import { context } from '../context/Context'
 import { Input } from '../components/input'
-import { useRouter } from 'next/router'
 import { socket } from '../socket/socket'
+import { useRouter } from 'next/router'
 
 const Index = () => {
   const router = useRouter()
 
-  const contextValues: Context = useContext(context)
+  const { name, room, setName, setRoom, setChat, setUsers }: any =
+    useContext(context)
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
 
     // Validating the form
-    if (
-      typeof contextValues.name !== 'undefined' &&
-      typeof contextValues.room !== 'undefined'
-    ) {
-      if (
-        contextValues.name.length > 20 ||
-        contextValues.name.length === 0 ||
-        contextValues.room.length === 0
-      ) {
+    if (typeof name !== 'undefined' && typeof room !== 'undefined') {
+      if (name.length > 20 || name.length === 0 || room.length === 0) {
         alert('Please enter a valid name and room')
         return
       }
     }
 
     // Checking if the room is public or a custom one
-    if (contextValues.room === 'public') {
+    if (room === 'public') {
       router.push('/chats/public')
 
-      socket.emit('join', { id: socket.id, name: contextValues.name })
+      socket.emit('join', { id: socket.id, name: name })
     }
   }
+
+  useEffect(() => {
+    socket.on('users', (payload) => {
+      setUsers(payload.users)
+    })
+  }, [socket])
+
+  useEffect(() => {
+    async function fetchMessages() {
+      const response = await fetch('http://localhost:5000/messages')
+      const data = await response.json()
+
+      setChat(data.messages)
+    }
+
+    fetchMessages()
+  }, [])
 
   return (
     <div>
@@ -51,15 +62,15 @@ const Index = () => {
           <Input
             type="text"
             placeholder="Name"
-            value={contextValues.name}
-            onChange={(e) => contextValues.setName?.(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <Input
             type="text"
             placeholder="Room"
             disabled={true}
-            value={contextValues.room}
-            onChange={(e) => contextValues.setRoom?.(e.target.value)}
+            value={room}
+            onChange={(e) => setRoom(e.target.value)}
           />
 
           <Button label="Join" onClick={handleSubmit} />

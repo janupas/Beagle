@@ -1,0 +1,15 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  .user {
+    p {
+      margin: 5px;
+      color: black;
+      padding: 8px;
+      background-color: #d6e4e5;
+      border-radius: 10px;
+    }
+  }
+}
