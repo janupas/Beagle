@@ -27,6 +27,7 @@ export interface User {
 export const Context = ({ children }: { children: ReactNode }) => {
   const [room, setRoom] = useState<string>('public')
   const [name, setName] = useState<string>('')
+  const [modal, setModal] = useState<boolean>(false)
   const [chat, setChat] = useState<Message[]>([])
   const [users, setUsers] = useState<User[]>([])
 
@@ -41,6 +42,8 @@ export const Context = ({ children }: { children: ReactNode }) => {
         setChat,
         users,
         setUsers,
+        modal,
+        setModal,
       }}
     >
       {children}

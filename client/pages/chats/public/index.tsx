@@ -10,11 +10,12 @@ import { socket } from '../../../socket/socket'
 import { AiOutlineSend } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { Users } from '../../../components/users'
+import { Modal } from '../../../components/modal'
 
 const PublicChatRoom = () => {
   const [message, setMessage] = useState<string>('')
 
-  const { name, chat, setChat }: any = useContext(context)
+  const { name, chat, setChat, modal, setModal }: any = useContext(context)
 
   const router = useRouter()
 
@@ -84,26 +85,28 @@ const PublicChatRoom = () => {
       <Container type={ContainerTypes.CHAT}>
         <Header title="Public chat room" />
 
-        <div className={Styles.chat_box}>
-          <div className={Styles.online_users}>
-            <h2>Online users</h2>
+        <div>
+          <Modal show={modal} handleClose={() => setModal(false)}>
+            <h1>Users</h1>
 
             <Users />
-          </div>
-          <div className={Styles.chats}>
-            {/** Rendering the chats */}
-            <Chats messages={chat} />
+          </Modal>
+          <Button label="Users" onClick={() => setModal(true)} />
+        </div>
 
-            <div style={{ marginTop: 30, display: 'flex' }}>
-              <Input
-                type="text"
-                placeholder="Your message..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-              <Button label={<AiOutlineSend />} onClick={send} />
-            </div>
+        <div className={Styles.chats}>
+          {/** Rendering the chats */}
+          <Chats messages={chat} />
+
+          <div style={{ marginTop: 30, display: 'flex' }}>
+            <Input
+              type="text"
+              placeholder="Your message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <Button label={<AiOutlineSend />} onClick={send} />
           </div>
         </div>
       </Container>
