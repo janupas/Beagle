@@ -1,6 +1,8 @@
 import { useContext } from 'react'
+
 import { context, User } from '../../context/Context'
 import { socket } from '../../socket/socket'
+
 import Styles from './users.module.scss'
 
 export const Users = () => {

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { Button } from '../button'
+
 import Styles from './modal.module.scss'
 
 interface ModalProps {

@@ -1,10 +1,13 @@
 import { SyntheticEvent, useContext, useEffect } from 'react'
-import { Header, HeaderType } from '../components/header'
+
 import Styles from '../styles/pages/index.module.scss'
+
+import { Header, HeaderType } from '../components/header'
 import { Container } from '../components/container'
 import { Button } from '../components/button'
-import { context } from '../context/Context'
 import { Input } from '../components/input'
+
+import { context } from '../context/Context'
 import { socket } from '../socket/socket'
 import { useRouter } from 'next/router'
 

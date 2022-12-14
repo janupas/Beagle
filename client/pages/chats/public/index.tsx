@@ -1,16 +1,20 @@
-import { Container, ContainerTypes } from '../../../components/container'
-import { Header, HeaderType } from '../../../components/header'
-import { context, MessageType } from '../../../context/Context'
-import Styles from '../../../styles/pages/chat.module.scss'
+import { AiOutlineSend } from 'react-icons/ai'
+import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
+
+import { context, MessageType } from '../../../context/Context'
+
+import Styles from '../../../styles/pages/chat.module.scss'
+
+import { Container, ContainerTypes } from '../../../components/container'
+import { Header } from '../../../components/header'
 import { Button } from '../../../components/button'
 import { Chats } from '../../../components/chats'
 import { Input } from '../../../components/input'
-import { socket } from '../../../socket/socket'
-import { AiOutlineSend } from 'react-icons/ai'
-import { useRouter } from 'next/router'
 import { Users } from '../../../components/users'
 import { Modal } from '../../../components/modal'
+
+import { socket } from '../../../socket/socket'
 
 const PublicChatRoom = () => {
   const [message, setMessage] = useState<string>('')
