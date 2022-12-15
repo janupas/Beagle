@@ -2,9 +2,11 @@ import { AiOutlineSend } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
-import { context, MessageType } from '../../../context/Context'
+import { AuthContext, authContext } from '../../../context/AuthContext'
 
 import Styles from '../../../styles/pages/chat.module.scss'
+
+import { MessageType } from '../../../context/ChatContext'
 
 import { Container, ContainerTypes } from '../../../components/container'
 import { Header } from '../../../components/header'
@@ -15,12 +17,15 @@ import { Users } from '../../../components/users'
 import { Modal } from '../../../components/modal'
 
 import { socket } from '../../../socket/socket'
+import { ChatContext, chatContext } from '../../../context/ChatContext'
+import { ModalContext, modalContext } from '../../../context/ModalContext'
 
 const PublicChatRoom = () => {
   const [message, setMessage] = useState<string>('')
 
-  const { name, chat, setChat, modal, setModal, room }: any =
-    useContext(context)
+  const { modal, setModal } = useContext(modalContext) as ModalContext
+  const { name, room } = useContext(authContext) as AuthContext
+  const { chat, setChat } = useContext(chatContext) as ChatContext
 
   const router = useRouter()
 

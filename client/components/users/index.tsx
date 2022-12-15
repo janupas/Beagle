@@ -1,12 +1,14 @@
 import { useContext } from 'react'
 
-import { context, User } from '../../context/Context'
+import { userContext, UserContext } from '../../context/UserContext'
 import { socket } from '../../socket/socket'
 
 import Styles from './users.module.scss'
 
+import { User } from '../../context/UserContext'
+
 export const Users = () => {
-  const { users }: any = useContext(context)
+  const { users } = useContext(userContext) as UserContext
 
   return (
     <div className={Styles.users}>

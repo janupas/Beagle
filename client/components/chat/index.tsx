@@ -1,4 +1,4 @@
-import { From } from '../../context/Context'
+import { From } from '../../context/ChatContext'
 
 import Styles from './chat.module.scss'
 
