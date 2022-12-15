@@ -17,11 +17,11 @@ export const connect = () => {
 /**
  * Load only 100 latest messages
  */
-export const getAllMessages = async () => {
+export const getAllMessages = async (room: string) => {
   return client
     .db('beagle')
     .collection('messages')
-    .find({}, { limit: 100 })
+    .find({room: room}, { limit: 100 })
     .toArray()
 }
 

@@ -24,6 +24,7 @@ const io = new Server(httpServer, {
 interface User {
   username: string
   id: string
+  room: string
 }
 
 let online_users: Array<User> = []
@@ -32,32 +33,37 @@ let online_users: Array<User> = []
 io.on('connection', (socket) => {
   console.log('User connected: ' + socket.id)
 
-  socket.on('join', (payload) => {
-    io.emit('user-changed', { value: `${payload.name} just joined` })
+  socket.on('join', async (payload) => {
+    socket.join(payload.room);
+    io.to(payload.room).emit('user-changed', { value: `${payload.name} just joined` })
 
     addMessage({
       value: `${payload.name} just joined`,
+      room: payload.room,
       type: 'notification',
     })
 
-    online_users.push({ username: payload.name, id: socket.id })
+    online_users.push({ username: payload.name, id: socket.id, room: payload.room })
 
-    io.emit('users', { users: online_users })
+    const oldMessages = await getAllMessages(payload.room)
+
+    io.to(payload.room).emit('load-messages', { messages: oldMessages })
+    io.to(payload.room).emit('users', { users: online_users.filter(user => user.room === payload.room) })
   })
 
   socket.on('message', (payload) => {
     addMessage({ ...payload, type: 'message' })
 
-    io.emit('message-back', payload)
+    io.to(payload.room).emit('message-back', payload)
   })
 
   socket.on('disconnect', () => {
     const user = online_users.find((user) => user.id === socket.id)
 
     if (typeof user?.username !== 'undefined') {
-      addMessage({ value: `${user?.username} just got disconnected` })
+      addMessage({ value: `${user?.username} just got disconnected`, type: 'notification', room: user.room })
 
-      io.emit('user-changed', {
+      io.to(user.room).emit('user-changed', {
         value: `${user?.username} just got disconnected`,
       })
 
@@ -74,7 +80,7 @@ app.get('/', (req: Request, res: Response<{ msg: string }>) => {
 })
 
 app.get('/messages', async (req: Request, res: Response) => {
-  const messages = await getAllMessages()
+  const messages: any = []
 
   res.json({ messages })
 })

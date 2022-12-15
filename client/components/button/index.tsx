@@ -1,5 +1,6 @@
-import Styles from './button.module.scss'
 import { ReactNode } from 'react'
+
+import Styles from './button.module.scss'
 
 interface ButtonProps {
   label: string | ReactNode
