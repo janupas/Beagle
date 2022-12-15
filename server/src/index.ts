@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
-import { addMessage, connect, getAllMessages } from './db'
+import { addMessage, connect, getSpecificRoomMessages, getAllMessages } from './db'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
 
     online_users.push({ username: payload.name, id: socket.id, room: payload.room })
 
-    const oldMessages = await getAllMessages(payload.room)
+    const oldMessages = await getSpecificRoomMessages(payload.room)
 
     io.to(payload.room).emit('load-messages', { messages: oldMessages })
     io.to(payload.room).emit('users', { users: online_users.filter(user => user.room === payload.room) })
@@ -80,7 +80,7 @@ app.get('/', (req: Request, res: Response<{ msg: string }>) => {
 })
 
 app.get('/messages', async (req: Request, res: Response) => {
-  const messages: any = []
+  const messages: any = await getAllMessages()
 
   res.json({ messages })
 })
