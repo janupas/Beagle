@@ -28,11 +28,11 @@ const Index = () => {
       }
     }
 
-    // Checking if the room is public or a custom one
-    if (room === 'public') {
+    // Joining a room
+    if (room !== '') {
       router.push('/chats/public')
 
-      socket.emit('join', { id: socket.id, name: name })
+      socket.emit('join', { id: socket.id, name, room })
     }
   }
 
@@ -43,14 +43,9 @@ const Index = () => {
   }, [socket])
 
   useEffect(() => {
-    async function fetchMessages() {
-      const response = await fetch('http://localhost:5000/messages')
-      const data = await response.json()
-
-      setChat(data.messages)
-    }
-
-    fetchMessages()
+    socket.on('load-messages', (payload) => {
+      setChat(payload.messages)
+    })
   }, [])
 
   return (
@@ -71,7 +66,6 @@ const Index = () => {
           <Input
             type="text"
             placeholder="Room"
-            disabled={true}
             value={room}
             onChange={(e) => setRoom(e.target.value)}
           />

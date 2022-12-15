@@ -19,7 +19,8 @@ import { socket } from '../../../socket/socket'
 const PublicChatRoom = () => {
   const [message, setMessage] = useState<string>('')
 
-  const { name, chat, setChat, modal, setModal }: any = useContext(context)
+  const { name, chat, setChat, modal, setModal, room }: any =
+    useContext(context)
 
   const router = useRouter()
 
@@ -30,6 +31,7 @@ const PublicChatRoom = () => {
         value: message,
         from: { id: socket.id, name },
         time: new Date().toLocaleTimeString(),
+        room,
       })
 
       // Empty the message field
@@ -87,7 +89,8 @@ const PublicChatRoom = () => {
   return (
     <div>
       <Container type={ContainerTypes.CHAT}>
-        <Header title="Public chat room" />
+        {/** Setting the room name to the title */}
+        <Header title={room} />
 
         <div>
           <Modal show={modal} handleClose={() => setModal(false)}>
