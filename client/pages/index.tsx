@@ -7,15 +7,22 @@ import { Container } from '../components/container'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 
-import { context } from '../context/Context'
+import { authContext, AuthContext } from '../context/AuthContext'
+
 import { socket } from '../socket/socket'
+
 import { useRouter } from 'next/router'
+import { UserContext, userContext } from '../context/UserContext'
+import { ChatContext, chatContext } from '../context/ChatContext'
 
 const Index = () => {
   const router = useRouter()
 
-  const { name, room, setName, setRoom, setChat, setUsers }: any =
-    useContext(context)
+  const { setUsers } = useContext(userContext) as UserContext
+  const { name, room, setName, setRoom } = useContext(
+    authContext
+  ) as AuthContext
+  const { setChat } = useContext(chatContext) as ChatContext
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()

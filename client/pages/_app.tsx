@@ -1,4 +1,8 @@
-import { Context } from '../context/Context'
+import { AuthContextProvider } from '../context/AuthContext'
+import { ChatContextProvider } from '../context/ChatContext'
+import { ModalContextProvider } from '../context/ModalContext'
+import { UserContextProvider } from '../context/UserContext'
+
 import '../styles/global.scss'
 
 interface AppProps {
@@ -9,9 +13,15 @@ interface AppProps {
 // Custom app
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Context>
-      <Component {...pageProps} />
-    </Context>
+    <ModalContextProvider>
+      <AuthContextProvider>
+        <ChatContextProvider>
+          <UserContextProvider>
+            <Component {...pageProps} />
+          </UserContextProvider>
+        </ChatContextProvider>
+      </AuthContextProvider>
+    </ModalContextProvider>
   )
 }
 

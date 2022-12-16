@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 
-import { Message, MessageType } from '../../context/Context'
 import { socket } from '../../socket/socket'
 
 import { Chat, MessageStatus } from '../chat'
 import { Notification } from '../notification'
 
 import Styles from './chats.module.scss'
+
+import { Message, MessageType } from '../../context/ChatContext'
 
 export interface ChatsProps {
   messages: Array<Message>
