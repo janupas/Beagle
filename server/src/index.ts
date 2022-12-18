@@ -1,7 +1,12 @@
 import express, { Request, Response } from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
-import { addMessage, connect, getSpecificRoomMessages, getAllMessages } from './db'
+import {
+  addMessage,
+  connect,
+  getSpecificRoomMessages,
+  getAllMessages,
+} from './db'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -34,8 +39,10 @@ io.on('connection', (socket) => {
   console.log('User connected: ' + socket.id)
 
   socket.on('join', async (payload) => {
-    socket.join(payload.room);
-    io.to(payload.room).emit('user-changed', { value: `${payload.name} just joined` })
+    socket.join(payload.room)
+    io.to(payload.room).emit('user-changed', {
+      value: `${payload.name} just joined`,
+    })
 
     addMessage({
       value: `${payload.name} just joined`,
@@ -43,12 +50,18 @@ io.on('connection', (socket) => {
       type: 'notification',
     })
 
-    online_users.push({ username: payload.name, id: socket.id, room: payload.room })
+    online_users.push({
+      username: payload.name,
+      id: socket.id,
+      room: payload.room,
+    })
 
     const oldMessages = await getSpecificRoomMessages(payload.room)
 
     io.to(payload.room).emit('load-messages', { messages: oldMessages })
-    io.to(payload.room).emit('users', { users: online_users.filter(user => user.room === payload.room) })
+    io.to(payload.room).emit('users', {
+      users: online_users.filter((user) => user.room === payload.room),
+    })
   })
 
   socket.on('message', (payload) => {
@@ -61,7 +74,11 @@ io.on('connection', (socket) => {
     const user = online_users.find((user) => user.id === socket.id)
 
     if (typeof user?.username !== 'undefined') {
-      addMessage({ value: `${user?.username} just got disconnected`, type: 'notification', room: user.room })
+      addMessage({
+        value: `${user?.username} just got disconnected`,
+        type: 'notification',
+        room: user.room,
+      })
 
       io.to(user.room).emit('user-changed', {
         value: `${user?.username} just got disconnected`,
