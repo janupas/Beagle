@@ -110,7 +110,9 @@ const PublicChatRoom = () => {
           {/** Rendering the chats */}
           <Chats messages={chat} />
 
-          <div style={{ marginTop: 30, display: 'flex' }}>
+          <div
+            style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}
+          >
             <Input
               type="text"
               placeholder="Your message..."

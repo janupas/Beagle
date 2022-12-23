@@ -8,6 +8,7 @@ import { Notification } from '../notification'
 import Styles from './chats.module.scss'
 
 import { Message, MessageType } from '../../context/ChatContext'
+import { Scroll } from '../Scroll'
 
 export interface ChatsProps {
   messages: Array<Message>
@@ -24,6 +25,10 @@ export const Chats = ({ messages }: ChatsProps) => {
   return (
     <React.Fragment>
       <div className={Styles.chats}>
+        <div>
+          <Scroll scrollRef={scrollRef} />
+        </div>
+
         {/** Mapping through messages */}
         {messages.map((message: Message, index) => {
           return (
